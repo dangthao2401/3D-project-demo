@@ -1,0 +1,45 @@
+#version 330 core
+
+struct Material {
+	vec3 ambientColor;
+	vec3 diffuseColor;
+	vec3 specularColor;
+	float shininess;
+};
+struct Light{
+	vec3 position;
+	vec3 color;
+};
+// Interpolated values from the vertex shaders
+in vec2 UV;
+in vec3 vertexNormal_worldspace;
+in vec3 vertexPosition_worldspace;
+// uniform
+uniform Material material;
+uniform Light light;
+uniform vec3 viewPos_worldspace;
+// Ouput data
+out vec3 color;
+void main(){
+	
+	// calculate the ambient
+	vec3 ambientM =  light.color* material.ambientColor ;
+	
+	// calculate the diffuse 
+	vec3 norm = normalize(vertexNormal_worldspace);
+	vec3 lightDirection = normalize(light.position - vertexPosition_worldspace); // find the light direction
+	float diffuse = max(dot(norm, lightDirection), 0.0);
+	vec3 diffuseM =  light.color*(diffuse*material.diffuseColor);
+	 
+	// calculate the specular
+	vec3 viewDir = normalize(viewPos_worldspace - vertexPosition_worldspace); // find view direction
+	vec3 reflectDir = reflect(-lightDirection, norm); // find refect direction
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+	vec3 specularM =  light.color* (spec*material.specularColor); 
+	
+	// combine color
+	color =  ambientM + diffuseM + specularM;
+}
+
+
+
