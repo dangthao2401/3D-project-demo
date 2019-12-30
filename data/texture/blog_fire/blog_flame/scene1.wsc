@@ -1,0 +1,84 @@
+{
+	"sceneObjects": [
+		{
+			"type": "SceneObject",
+			"position": {
+				"x": 0,
+				"y": -0.5500000000000004
+			},
+			"rotation": 0,
+			"behaviors": [],
+			"sprites": [
+				{
+					"type": "Sprite",
+					"animations": {},
+					"currentAnimation": "default",
+					"sortPoint": {
+						"x": 0,
+						"y": 0
+					},
+					"layer": 1,
+					"autoResize": false,
+					"visible": true,
+					"image": "flame.png",
+					"imageArea": {
+						"minX": 0,
+						"minY": 0,
+						"maxX": 1,
+						"maxY": 1
+					},
+					"alwaysDraw": true,
+					"name": "flame",
+					"drawModifiers": [],
+					"pixelShader": "vec2 uv = uvAlphaTime.xy;\nfloat time = uvAlphaTime.w;\n\n// Generate noisy x value\nvec2 n0Uv = vec2(uv.x*1.4 + 0.01, uv.y + time*0.69);\nvec2 n1Uv = vec2(uv.x*0.5 - 0.033, uv.y*2.0 + time*0.12);\nvec2 n2Uv = vec2(uv.x*0.94 + 0.02, uv.y*3.0 + time*0.61);\nfloat n0 = (texture2D(uDiffuseSampler, n0Uv).w-0.5)*2.0;\nfloat n1 = (texture2D(uDiffuseSampler, n1Uv).w-0.5)*2.0;\nfloat n2 = (texture2D(uDiffuseSampler, n2Uv).w-0.5)*2.0;\nfloat noiseA = clamp(n0 + n1 + n2, -1.0, 1.0);\n\n// Generate noisy y value\nvec2 n0UvB = vec2(uv.x*0.7 - 0.01, uv.y + time*0.27);\nvec2 n1UvB = vec2(uv.x*0.45 + 0.033, uv.y*1.9 + time*0.61);\nvec2 n2UvB = vec2(uv.x*0.8 - 0.02, uv.y*2.5 + time*0.51);\nfloat n0B = (texture2D(uDiffuseSampler, n0UvB).w-0.5)*2.0;\nfloat n1B = (texture2D(uDiffuseSampler, n1UvB).w-0.5)*2.0;\nfloat n2B = (texture2D(uDiffuseSampler, n2UvB).w-0.5)*2.0;\nfloat noiseB = clamp(n0B + n1B + n2B, -1.0, 1.0);\n\nvec2 finalNoise = vec2(noiseA, noiseB);\nfloat perturb = (1.0 - uv.y) * 0.35 + 0.02;\nfinalNoise = (finalNoise * perturb) + uv - 0.02;\nvec4 color = texture2D(uDiffuseSampler, finalNoise);\ncolor = vec4(color.x*2.0, color.y*0.9, (color.y/color.x)*0.2, 1.0);\nfinalNoise = clamp(finalNoise, 0.05, 1.0);\ncolor.w = texture2D(uDiffuseSampler, finalNoise).z*2.0;\ncolor.w = color.w*texture2D(uDiffuseSampler, uv).z;\ngl_FragColor = color;\n",
+					"pixelShaderUniforms": {},
+					"properties": {},
+					"size": {
+						"x": 256,
+						"y": 256
+					}
+				}
+			],
+			"spriteOffsets": [
+				{
+					"x": 0,
+					"y": 0,
+					"angle": 0
+				}
+			],
+			"alignment": {
+				"x": "center",
+				"y": "center"
+			},
+			"name": "SceneObject_0",
+			"isTemplate": false,
+			"addToScene": {
+				"autoListen": true,
+				"params": null
+			},
+			"properties": {}
+		}
+	],
+	"paths": [],
+	"layers": [
+		null,
+		{
+			"scaleFactor": 1,
+			"translateFactor": 1,
+			"renderMode": "webgl",
+			"useQuadtree": true,
+			"resolutionFactor": 1
+		}
+	],
+	"minScreenSize": {
+		"x": 0,
+		"y": 0
+	},
+	"maxScreenSize": {
+		"x": 1920,
+		"y": 1080
+	},
+	"orientation": "none",
+	"windowMode": "full",
+	"defaultLayer": 1
+}

@@ -1,0 +1,37 @@
+void createquad(std::vector<glm::vec3> &vertices, std::vector<glm::vec2> &uvs, std::vector<glm::vec3> &normals)
+{
+	glm::vec3 vertex1 = glm::vec3(-1.0f, -1.0f, 0.0f);
+	vertices.push_back(vertex1);
+	glm::vec3 vertex2 = glm::vec3(1.0f, -1.0f, 0.0f);
+	vertices.push_back(vertex2);
+	glm::vec3 vertex3 = glm::vec3(1.0f, 1.0f, 0.0f);
+	vertices.push_back(vertex3);
+	glm::vec3 vertex4 = glm::vec3(-1.0f, -1.0f, 0.0f);
+	vertices.push_back(vertex4);
+	glm::vec3 vertex5 = glm::vec3(1.0f, 1.0f, 0.0f);
+	vertices.push_back(vertex5);
+	glm::vec3 vertex6 = glm::vec3(-1.0f, 1.0f, 0.0f);
+	vertices.push_back(vertex6);
+
+	glm::vec2 uv1 = glm::vec2(0.0f, 0.0f);
+	uvs.push_back(uv1);
+	glm::vec2 uv2 = glm::vec2(1.0f, 0.0f);
+	uvs.push_back(uv2);
+	glm::vec2 uv3 = glm::vec2(1.0f, 1.0f);
+	uvs.push_back(uv3);
+	glm::vec2 uv4 = glm::vec2(0.0f, 0.0f);
+	uvs.push_back(uv4);
+	glm::vec2 uv5 = glm::vec2(1.0f, 1.0f);
+	uvs.push_back(uv5);
+	glm::vec2 uv6 = glm::vec2(0.0f, 1.0f);
+	uvs.push_back(uv6);
+
+	glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
+	normals.push_back(normal);
+	normals.push_back(normal);
+	normals.push_back(normal);
+	normals.push_back(normal);
+	normals.push_back(normal);
+	normals.push_back(normal);
+
+}

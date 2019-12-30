@@ -1,0 +1,25 @@
+#version 330 core
+
+// Interpolated values from the vertex shaders
+in vec2 UV;
+
+// Ouput data
+out vec4 color;
+
+// Values that stay constant for the whole mesh.
+uniform sampler2D fire_texture;//fire
+uniform sampler2D disp_texture;//dispmap
+uniform sampler2D alpha_texture;//firemask
+uniform float u_time;
+void main(){
+
+	vec2 disp = texture(disp_texture,vec2(UV.x,UV.y+u_time)).rg;
+	vec2 displacement = (2.0*disp - 1.0)*0.2;// -0.2<= Displacement <= 0.2
+	vec2 newuv = UV + displacement; 
+	// get fire color
+	vec4 texture_color = texture(fire_texture,newuv);
+	// get alpha chanel
+	vec4 alphamask = texture(alpha_texture,UV);
+	vec4 disp_color = texture(disp_texture,UV);
+	color =disp_color; texture_color * vec4(1.0,1.0,1.0,alphamask.a);
+}
